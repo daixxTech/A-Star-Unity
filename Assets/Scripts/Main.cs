@@ -23,14 +23,13 @@ public class Main : MonoBehaviour {
         foreach (var module in _moduleList) {
             module.Awake();
         }
-        
+
         _uiRoot = GameObject.Find("UIRoot");
         _uiDict = new Dictionary<string, Transform>();
-
     }
 
     private void Start() {
-        InputFacade.AddKeyDownAction?.Invoke(KeyCode.Escape, Application.Quit);
+        InputFacade.AddKeyDownAction?.Invoke(KeyCode.Escape, Quit);
         ShowUI(UIDef.MAP_UI);
     }
 
@@ -41,7 +40,7 @@ public class Main : MonoBehaviour {
     }
 
     public void OnDestroy() {
-        InputFacade.RemoveKeyDownAction?.Invoke(KeyCode.Escape, Application.Quit);
+        InputFacade.RemoveKeyDownAction?.Invoke(KeyCode.Escape, Quit);
 
         foreach (var module in _moduleList) {
             module.Dispose();
@@ -71,5 +70,9 @@ public class Main : MonoBehaviour {
                 uiTrans.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void Quit() {
+        Application.Quit();
     }
 }
